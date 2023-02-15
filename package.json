@@ -4,7 +4,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "dev": "nodemon ./src/index.ts",
-    "start": "node ./src/index.ts",
+    "start": "ts-node ./src/index.ts",
     "commit": "cz",
     "lint": "eslint --fix" 
   },
