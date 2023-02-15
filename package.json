@@ -6,7 +6,7 @@
     "dev": "nodemon ./src/index.ts",
     "start": "node ./src/index.ts",
     "commit": "cz",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix" 
   },
   "dependencies": {
     "@types/qrcode-terminal": "^0.12.0",
