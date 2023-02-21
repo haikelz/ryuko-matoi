@@ -26,7 +26,7 @@ client.on("ready", () => {
   console.log("Client udah siap!");
 });
 
-client.on("message", async (message: Message) => {
+client.on("message_create", async (message: Message) => {
   const text: string = message.body.toLowerCase() || "";
 
   // cek status bot dengan !salam
