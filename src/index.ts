@@ -29,12 +29,12 @@ client.on("ready", () => {
 client.on("message_create", async (message: Message) => {
   const text: string = message.body.toLowerCase() || "";
 
-  // cek status bot dengan !salam
-  if (text === "!salam") message.reply(`Assalamu'alaikum ${text} :)`);
+  // Cek status bot dengan !salam
+  if (text === "!salam") message.reply(`Assalamu'alaikum :)`);
 
   if (text.startsWith("!info")) await getInfo(text, message);
 
-  // hapus background
+  // hapus background foto
   if (text.startsWith("!editphoto")) await editPhoto(text, message, client);
 
   // Chat GPT
@@ -44,25 +44,22 @@ client.on("message_create", async (message: Message) => {
   if (text.startsWith("!jadwalsholat") || text.startsWith("!sholat"))
     await getJadwalSholat(text, message, client);
 
-  // sticker
+  // Sticker
   if (text.startsWith("!sticker") || text.startsWith("!s")) await createSticker(message, client);
 
-  // sticker to img(WIP)
-  // if (text.startsWith("!toimg")) await toImg(message, client);
-
-  // random jokes
+  // Random jokes bapak-bapak
   if (text.startsWith("!jokes")) await getRandomJokes(text, message, client);
 
-  // random images
+  // Random images from Unsplash
   if (text.startsWith("!image")) await getRandomImage(text, message, client);
 
-  // search linux distro
+  // Search linux distro
   if (text.startsWith("!distro")) await getDistroInfo(text, message, client);
 
-  // get anime quote
+  // Anime quote
   if (text.startsWith("!animequote")) await getAnimeQuote(text, message, client);
 
-  // doa
+  // Kumpulan do'a
   if (text.startsWith("!doa")) await getDoa(text, message, client);
 });
 
