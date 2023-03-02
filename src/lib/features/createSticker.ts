@@ -10,7 +10,7 @@ export const createSticker = async (message: Message, client: Client) => {
         .getQuotedMessage()
         .then(async (msg) => await msg.downloadMedia());
 
-      if (!quotedMessage.mimetype.includes("image") || !quotedMessage.mimetype.includes("video")) {
+      if (!quotedMessage.mimetype.includes("image") && !quotedMessage.mimetype.includes("video")) {
         return message.reply(
           `*Format file yang anda masukkan salah!* Silahkan masukkan file berupa gambar/video. Format file yang anda masukkan: ${
             quotedMessage.mimetype.split("/")[0]
@@ -27,7 +27,7 @@ export const createSticker = async (message: Message, client: Client) => {
 
     const media: MessageMedia = await message.downloadMedia();
 
-    if (!media.mimetype.includes("image") || !media.mimetype.includes("video")) {
+    if (!media.mimetype.includes("image") && !media.mimetype.includes("video")) {
       return message.reply(
         `*Format file yang anda masukkan salah!* Silahkan masukkan file berupa gambar/video. Format file yang anda masukkan: ${
           media.mimetype.split("/")[0]
