@@ -13,6 +13,7 @@ export const getInfo = async (text: string, message: Message) => {
 \t!sticker\t\t
 \t!image\t\t
 \t!distro\t\t
+\t!doa\t\t
 \t!animequote\t\t
 `);
 };

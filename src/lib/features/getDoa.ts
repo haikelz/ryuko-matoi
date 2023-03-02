@@ -16,7 +16,7 @@ export const getDoa = async (text: string, message: Message, client: Client): Pr
 
   if (command === "info") {
     return message.reply(
-      "Ini adalah perintah untuk mendapatkan Do'a secara spesifik, maupun secara random. Ketik *!doa* untuk mendapatkan hasil random, dan *!doa <semua>* untuk mendapatkan semua"
+      "Ini adalah perintah untuk mendapatkan Do'a secara spesifik, maupun secara random. Ketik *!doa* untuk mendapatkan hasil random, dan *!doa semua* untuk mendapatkan semua"
     );
   }
 

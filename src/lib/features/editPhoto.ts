@@ -44,7 +44,7 @@ export const editPhoto = async (text: string, message: Message, client: Client) 
   if (command.length <= 2) {
     if (command.length === 0) {
       return message.reply(
-        "Ini adalah perintah untuk mengubah warna background dari sebuah foto. Cukup ketik *!editphoto <your_daerah>*"
+        "Ini adalah perintah untuk mengubah warna background dari sebuah foto. Cukup ketik *!editphoto <warna>*"
       );
     }
     return message.reply(
@@ -52,7 +52,7 @@ export const editPhoto = async (text: string, message: Message, client: Client) 
     );
   }
 
-  if (!command) return message.reply(`${wrongFormat}. Ketik *edit_bg <warna>*`);
+  if (!command) return message.reply(`${wrongFormat}. Ketik *editphoto <warna>*`);
 
   if (message.hasMedia) {
     if (message.type != "image") {

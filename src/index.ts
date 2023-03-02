@@ -30,7 +30,7 @@ client.on("message_create", async (message: Message) => {
   const text: string = message.body.toLowerCase() || "";
 
   // Cek status bot dengan !salam
-  if (text === "!salam") message.reply(`Assalamu'alaikum :)`);
+  if (text.startsWith("!salam")) return message.reply("Assalamu'alaikum");
 
   if (text.startsWith("!info")) await getInfo(text, message);
 

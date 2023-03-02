@@ -1,7 +1,0 @@
-version: "3.9"
-
-services:
-  wsbot:
-    build: .
-    command: npm run dev
-    restart: on-failure

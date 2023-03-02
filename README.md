@@ -1,4 +1,4 @@
 <div align="center">
   <h1>ryuko-matoi</h1>
-  <p>Bot Whatsapp for personal usage only</p>
+  <p>Bot Whatsapp for personal usage</p>
 </div>
