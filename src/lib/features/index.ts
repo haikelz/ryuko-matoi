@@ -8,4 +8,3 @@ export * from "./getRandomImage";
 export * from "./getDistroInfo";
 export * from "./getAnimeQuote";
 export * from "./getDoa";
-export * from "./stickerToImg";

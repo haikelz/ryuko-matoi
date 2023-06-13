@@ -2,11 +2,7 @@ import axios from "axios";
 import { Client, Message, MessageMedia } from "whatsapp-web.js";
 import { waitMessage } from "../utils/constants";
 
-export const getRandomJokes = async (
-  text: string,
-  message: Message,
-  client: Client
-): Promise<Message> => {
+export const getRandomJokes = async (message: Message, client: Client): Promise<Message> => {
   client.sendMessage(message.from, waitMessage);
 
   try {

@@ -32,12 +32,13 @@ client.on("message_create", async (message: Message) => {
   // Cek status bot dengan !salam
   if (text.startsWith("!salam")) return message.reply("Assalamu'alaikum");
 
+  // Info
   if (text.startsWith("!info")) await getInfo(text, message);
 
   // hapus background foto
   if (text.startsWith("!editphoto")) await editPhoto(text, message, client);
 
-  // Chat GPT
+  // Open AI
   if (text.startsWith("!ask")) await getAnswerFromAI(text, message, client);
 
   // Jadwal Sholat
@@ -48,7 +49,7 @@ client.on("message_create", async (message: Message) => {
   if (text.startsWith("!sticker") || text.startsWith("!s")) await createSticker(message, client);
 
   // Random jokes bapak-bapak
-  if (text.startsWith("!jokes")) await getRandomJokes(text, message, client);
+  if (text.startsWith("!jokes")) await getRandomJokes(message, client);
 
   // Random images from Unsplash
   if (text.startsWith("!image")) await getRandomImage(text, message, client);
