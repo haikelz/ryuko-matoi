@@ -1,8 +1,8 @@
 import { Client, Message, MessageMedia } from "whatsapp-web.js";
-import { waitMessage } from "../utils/constants";
+import { WAIT_MESSAGE } from "../utils/constants";
 
-export const createSticker = async (message: Message, client: Client) => {
-  client.sendMessage(message.from, waitMessage);
+export async function createSticker(message: Message, client: Client) {
+  client.sendMessage(message.from, WAIT_MESSAGE);
 
   try {
     if (message.hasQuotedMsg) {
@@ -40,7 +40,7 @@ export const createSticker = async (message: Message, client: Client) => {
       stickerAuthor: "Ryuko Matoi",
       stickerName: "Baiklah",
     });
-  } catch (err) {
-    return message.reply(`${err}`);
+  } catch (error) {
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
   }
-};
+}

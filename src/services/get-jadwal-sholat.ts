@@ -1,13 +1,13 @@
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { bulan, hari, tahun } from "../helpers/formatDate";
-import { waitMessage } from "../utils/constants";
+import { WAIT_MESSAGE } from "../utils/constants";
+import { bulan, hari, tahun } from "../utils/format-date";
 
-export const getJadwalSholat = async (
+export async function getJadwalSholat(
   text: string,
   message: Message,
   client: Client
-): Promise<Message> => {
+): Promise<Message> {
   const date: string = `${tahun}/${bulan}/${hari}`;
   const target: string = `${text.split(" ").slice(1).join(" ").toLowerCase()}`;
   const indonesianDate = new Date().toLocaleDateString("id-Id", {
@@ -16,7 +16,7 @@ export const getJadwalSholat = async (
     day: "numeric",
   });
 
-  client.sendMessage(message.from, waitMessage);
+  client.sendMessage(message.from, WAIT_MESSAGE);
 
   if (target.length <= 2) {
     if (target.length === 0) {
@@ -31,10 +31,10 @@ export const getJadwalSholat = async (
 
   try {
     const getId = await axios
-      .get(`https://api.myquran.com/v1/sholat/kota/cari/${target}`)
+      .get(`https://api.myquran.com/v2/sholat/kota/cari/${target}`)
       .then((res) => res.data.data[0].id);
     const response = await axios
-      .get(`https://api.myquran.com/v1/sholat/jadwal/${getId}/${date}`)
+      .get(`https://api.myquran.com/v2/sholat/jadwal/${getId}/${date}`)
       .then((res) => res.data);
 
     const { imsak, subuh, terbit, dhuha, dzuhur, ashar, maghrib, isya } = response.data.jadwal;
@@ -52,6 +52,6 @@ Ashar = ${ashar}
 Maghrib = ${maghrib}
 Isya = ${isya}`);
   } catch (err) {
-    return message.reply(`${err}`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
   }
-};
+}

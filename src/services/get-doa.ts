@@ -1,6 +1,6 @@
-import { Client, Message } from "whatsapp-web.js";
-import { waitMessage, wrongFormat } from "../utils/constants";
 import axios from "axios";
+import { Client, Message } from "whatsapp-web.js";
+import { WAIT_MESSAGE } from "../utils/constants";
 
 type DoaProps = {
   id: string;
@@ -10,9 +10,9 @@ type DoaProps = {
   artinya: string;
 };
 
-export const getDoa = async (text: string, message: Message, client: Client): Promise<Message> => {
+export async function getDoa(text: string, message: Message, client: Client): Promise<Message> {
   const command: string = `${text.split(" ").slice(1).join(" ").toLowerCase()}`;
-  client.sendMessage(message.from, waitMessage);
+  client.sendMessage(message.from, WAIT_MESSAGE);
 
   if (command === "info") {
     return message.reply(
@@ -28,11 +28,16 @@ export const getDoa = async (text: string, message: Message, client: Client): Pr
     // bila command yang diberikan kosong
     if (command === "") {
       return message.reply(
-        randomDoa.map((value: DoaProps) =>  
-`*${value.doa}*:
+        randomDoa
+          .map(
+            (value: DoaProps) =>
+              `*${value.doa}*:
       
 ${value.ayat}
-Artinya: ${value.artinya}`).join("\n"));
+Artinya: ${value.artinya}`
+          )
+          .join("\n")
+      );
     }
 
     const semuaDoa = await axios
@@ -45,23 +50,26 @@ Artinya: ${value.artinya}`).join("\n"));
         semuaDoa
           .map(
             (value: DoaProps) =>
-`*${value.doa}*:    
+              `*${value.doa}*:    
 
 ${value.ayat}
-Artinya: ${value.artinya}`).join("\n"));
+Artinya: ${value.artinya}`
+          )
+          .join("\n")
+      );
     }
 
     // buat nyari doa sesuai keinginan user. Hasilnya langsung berupa object bukan array of object lagi
-    const targetDoa:DoaProps = await axios
+    const targetDoa: DoaProps = await axios
       .get(`https://doa-doa-api-ahmadramadhan.fly.dev/api/doa/${command}`)
       .then((res) => res.data);
     return message.reply(
-`*${targetDoa.doa}*:    
+      `*${targetDoa.doa}*:    
 
 ${targetDoa.ayat}
 Artinya: ${targetDoa.artinya}`
-        )
+    );
   } catch (err) {
-    return message.reply(`${err}`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
   }
-};
+}

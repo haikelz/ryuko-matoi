@@ -1,9 +1,9 @@
 import axios from "axios";
 import { Client, Message, MessageMedia } from "whatsapp-web.js";
-import { waitMessage } from "../utils/constants";
+import { WAIT_MESSAGE } from "../utils/constants";
 
-export const getRandomJokes = async (message: Message, client: Client): Promise<Message> => {
-  client.sendMessage(message.from, waitMessage);
+export async function getRandomJokes(message: Message, client: Client): Promise<Message> {
+  client.sendMessage(message.from, WAIT_MESSAGE);
 
   try {
     const randomText = await axios
@@ -18,6 +18,6 @@ export const getRandomJokes = async (message: Message, client: Client): Promise<
       caption: randomText,
     });
   } catch (err) {
-    return message.reply(`${err}`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
   }
-};
+}

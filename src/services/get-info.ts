@@ -1,6 +1,6 @@
 import { Message } from "whatsapp-web.js";
 
-export const getInfo = async (text: string, message: Message) => {
+export async function getInfo(text: string, message: Message) {
   return message.reply(`
 \t*Ryuko Matoi*\t\t
 
@@ -12,8 +12,7 @@ export const getInfo = async (text: string, message: Message) => {
 \t!jadwalsholat\t\t
 \t!sticker\t\t
 \t!image\t\t
-\t!distro\t\t
 \t!doa\t\t
 \t!animequote\t\t
 `);
-};
+}

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { waitMessage } from "../utils/constants";
+import { WAIT_MESSAGE } from "../utils/constants";
 
 type QuoteByAnimeProps = {
   id: number;
@@ -10,14 +10,14 @@ type QuoteByAnimeProps = {
   anime: string;
 };
 
-export const getAnimeQuote = async (
+export async function getAnimeQuote(
   text: string,
   message: Message,
   client: Client
-): Promise<Message> => {
+): Promise<Message> {
   const anime: string = text.split(" ").slice(1).join(" ").toLowerCase();
 
-  client.sendMessage(message.from, waitMessage);
+  client.sendMessage(message.from, WAIT_MESSAGE);
 
   try {
     /**
@@ -46,6 +46,6 @@ export const getAnimeQuote = async (
       response.map((value: QuoteByAnimeProps) => `*${value.anime}*\n- ${value.indo}`).join("\n\n")
     );
   } catch (err) {
-    return message.reply(`${err}`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
   }
-};
+}

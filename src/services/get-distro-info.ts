@@ -1,11 +1,15 @@
+/**
+ * IMPORTANT
+ * Since the API is no longer working, I don't use this command/feature anymore
+ */
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { waitMessage } from "../utils/constants";
+import { WAIT_MESSAGE } from "../utils/constants";
 
-export const getDistroInfo = async (text: string, message: Message, client: Client) => {
+export async function getDistroInfo(text: string, message: Message, client: Client) {
   const distro: string = `${text.split(" ").slice(1).join(" ")}`;
 
-  client.sendMessage(message.from, waitMessage);
+  client.sendMessage(message.from, WAIT_MESSAGE);
 
   if (distro.length <= 2) {
     if (distro.length === 0) {
@@ -41,6 +45,6 @@ ${result.documentations.map((value: string) => `- ${value}`).join("\n")}
 ${result.download_mirrors.map((value: string) => `- ${value}`).join("\n")}
 `);
   } catch (err) {
-    message.reply(`${err}`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
   }
-};
+}
