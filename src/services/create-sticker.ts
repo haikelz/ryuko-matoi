@@ -1,7 +1,7 @@
 import { Client, Message, MessageMedia } from "whatsapp-web.js";
 import { WAIT_MESSAGE } from "../utils/constants";
 
-export async function createSticker(message: Message, client: Client) {
+export async function createSticker(message: Message, client: Client): Promise<Message> {
   client.sendMessage(message.from, WAIT_MESSAGE);
 
   try {

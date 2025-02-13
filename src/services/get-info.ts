@@ -1,7 +1,11 @@
-import { Message } from "whatsapp-web.js";
+import { Message, MessageMedia } from "whatsapp-web.js";
 
-export async function getInfo(text: string, message: Message) {
-  return message.reply(`
+export async function getInfo(message: Message): Promise<Message> {
+  try {
+    const media: MessageMedia = MessageMedia.fromFilePath("src/assets/thumbnail.png");
+
+    return message.reply(media, message.from, {
+      caption: `
 \t*Ryuko Matoi*\t\t
 
 \t*Menu:*\t\t
@@ -13,6 +17,11 @@ export async function getInfo(text: string, message: Message) {
 \t!sticker\t\t
 \t!image\t\t
 \t!doa\t\t
+\t!jokes\t\t
 \t!animequote\t\t
-`);
+`,
+    });
+  } catch (err) {
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
+  }
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { WAIT_MESSAGE } from "../utils/constants";
+import { QURAN_API_URL, WAIT_MESSAGE } from "../utils/constants";
 import { bulan, hari, tahun } from "../utils/format-date";
 
 export async function getJadwalSholat(
@@ -31,10 +31,10 @@ export async function getJadwalSholat(
 
   try {
     const getId = await axios
-      .get(`https://api.myquran.com/v2/sholat/kota/cari/${target}`)
+      .get(`${QURAN_API_URL}/v2/sholat/kota/cari/${target}`)
       .then((res) => res.data.data[0].id);
     const response = await axios
-      .get(`https://api.myquran.com/v2/sholat/jadwal/${getId}/${date}`)
+      .get(`${QURAN_API_URL}/v2/sholat/jadwal/${getId}/${date}`)
       .then((res) => res.data);
 
     const { imsak, subuh, terbit, dhuha, dzuhur, ashar, maghrib, isya } = response.data.jadwal;

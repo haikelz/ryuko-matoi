@@ -19,7 +19,7 @@ async function ChatGPTRequest(text: string) {
     message: "",
   };
 
-  return await openai.chat.completions
+  const data = await openai.chat.completions
     .create({
       model: "gpt-4o-mini",
       messages: [
@@ -45,6 +45,8 @@ async function ChatGPTRequest(text: string) {
       result.message = `Wah error nih, silahkan coba lagi ya!`;
       return result;
     });
+
+  return data;
 }
 
 export async function getAnswerFromAI(

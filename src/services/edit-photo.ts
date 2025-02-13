@@ -1,9 +1,20 @@
 import axios from "axios";
 import { Chat, Client, Message, MessageMedia } from "whatsapp-web.js";
-import { REMOVE_BG_API_KEY, WAIT_MESSAGE, WRONG_FORMAT } from "../utils/constants";
+import {
+  REMOVE_BG_API_KEY,
+  REMOVE_BG_API_URL,
+  WAIT_MESSAGE,
+  WRONG_FORMAT,
+} from "../utils/constants";
 
-async function editPhotoRequest(base64: string, bgColor: string) {
-  const result = {
+type ResultProps = {
+  success: boolean;
+  base64: null;
+  message: string;
+};
+
+async function editPhotoRequest(base64: string, bgColor: string): Promise<ResultProps> {
+  const result: ResultProps = {
     success: false,
     base64: null,
     message: "",
@@ -11,7 +22,7 @@ async function editPhotoRequest(base64: string, bgColor: string) {
 
   return await axios({
     method: "post",
-    url: "https://api.remove.bg/v1.0/removebg",
+    url: `${REMOVE_BG_API_URL}/v1.0/removebg`,
     data: {
       image_file_b64: base64,
       bg_color: bgColor,
@@ -62,7 +73,6 @@ export async function editPhoto(text: string, message: Message, client: Client) 
         return message.reply("Maaf! Sepertinya file yang kamu berikan bukan gambar");
       }
 
-      client.sendMessage(message.from, WAIT_MESSAGE);
       const media: MessageMedia = await message.downloadMedia();
 
       if (media) {

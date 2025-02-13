@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { WAIT_MESSAGE } from "../utils/constants";
+import { DOA_API_URL, WAIT_MESSAGE } from "../utils/constants";
 
 type DoaProps = {
   id: string;
@@ -21,9 +21,7 @@ export async function getDoa(text: string, message: Message, client: Client): Pr
   }
 
   try {
-    const randomDoa = await axios
-      .get("https://doa-doa-api-ahmadramadhan.fly.dev/api/doa/v1/random")
-      .then((res) => res.data);
+    const randomDoa = await axios.get(`${DOA_API_URL}/api/doa/v1/random`).then((res) => res.data);
 
     // bila command yang diberikan kosong
     if (command === "") {

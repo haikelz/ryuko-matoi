@@ -1,5 +1,5 @@
 import { Client, Message, MessageMedia } from "whatsapp-web.js";
-import { WAIT_MESSAGE } from "../utils/constants";
+import { IMAGE_API_URL, WAIT_MESSAGE } from "../utils/constants";
 
 /**
  * IMPORTANT
@@ -13,12 +13,8 @@ export async function getRandomImage(
   const type: string = `${text.split(" ").slice(1).join(" ").toLowerCase()}`;
   client.sendMessage(message.from, WAIT_MESSAGE);
 
-  if (type.length === 0) {
-    return message.reply("Ini adalah perintah untuk mendapatkan gambar acak. Cukup ketik *!image*");
-  }
-
   try {
-    const media: MessageMedia = await MessageMedia.fromUrl(`https://picsum.photos/400`, {
+    const media: MessageMedia = await MessageMedia.fromUrl(`${IMAGE_API_URL}/400`, {
       unsafeMime: true,
     });
     return message.reply(media, message.from, { caption: type });

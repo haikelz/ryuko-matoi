@@ -1,5 +1,6 @@
 import qrcode from "qrcode-terminal";
-import { Client, LocalAuth, Message } from "whatsapp-web.js";
+import { Client, Message } from "whatsapp-web.js";
+import { waWebConfig } from "./configs/wa-web";
 import {
   createSticker,
   editPhoto,
@@ -14,30 +15,7 @@ import {
 } from "./services";
 
 async function main() {
-  const client = new Client({
-    authStrategy: new LocalAuth(),
-    puppeteer: {
-      headless: true,
-      args: [
-        "--log-level=3",
-        "--start-maximized",
-        "--no-default-browser-check",
-        "--disable-infobars",
-        "--disable-web-security",
-        "--disable-site-isolation-trials",
-        "--no-experiments",
-        "--ignore-gpu-blacklist",
-        "--ignore-certificate-errors",
-        "--ignore-certificate-errors-spki-list",
-        "--disable-gpu",
-        "--disable-extensions",
-        "--disable-default-apps",
-        "--enable-features=NetworkService",
-        "--disable-setuid-sandbox",
-        "--no-sandbox",
-      ],
-    },
-  });
+  const client = new Client(waWebConfig);
 
   client.on("qr", (qr: string) => {
     qrcode.generate(qr, { small: true });
@@ -54,7 +32,7 @@ async function main() {
     if (text.startsWith("!salam")) return message.reply("Assalamu'alaikum");
 
     // Info
-    if (text.startsWith("!info")) await getInfo(text, message);
+    if (text.startsWith("!info")) await getInfo(message);
 
     // hapus background foto
     if (text.startsWith("!editphoto")) await editPhoto(text, message, client);

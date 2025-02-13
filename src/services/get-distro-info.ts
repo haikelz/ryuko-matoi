@@ -4,7 +4,7 @@
  */
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { WAIT_MESSAGE } from "../utils/constants";
+import { DISTRO_INFO_API_URL, WAIT_MESSAGE } from "../utils/constants";
 
 export async function getDistroInfo(text: string, message: Message, client: Client) {
   const distro: string = `${text.split(" ").slice(1).join(" ")}`;
@@ -25,7 +25,7 @@ export async function getDistroInfo(text: string, message: Message, client: Clie
 
   try {
     const result = await axios
-      .get(`https://diwa.demo-web-fahmi.my.id/api/v2/distributions/${distro}`)
+      .get(`${DISTRO_INFO_API_URL}/api/v2/distributions/${distro}`)
       .then((res) => res.data);
 
     return message.reply(`

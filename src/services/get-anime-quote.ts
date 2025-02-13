@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { WAIT_MESSAGE } from "../utils/constants";
+import { ANIME_QUOTE_API_URL, WAIT_MESSAGE } from "../utils/constants";
 
 type QuoteByAnimeProps = {
   id: number;
@@ -26,7 +26,7 @@ export async function getAnimeQuote(
      */
     if (anime.length) {
       const response = await axios
-        .get(`https://katanime.vercel.app/api/getbyanime?anime=${anime}&page=1`)
+        .get(`${ANIME_QUOTE_API_URL}/api/getbyanime?anime=${anime}&page=1`)
         .then((res) => res.data.result);
 
       return message.reply(
@@ -39,7 +39,7 @@ export async function getAnimeQuote(
      *   maka get resultnya secara random(dari anime manapun)
      */
     const response = await axios
-      .get(`https://katanime.vercel.app/api/getrandom`)
+      .get(`${ANIME_QUOTE_API_URL}/api/getrandom`)
       .then((res) => res.data.result);
 
     return message.reply(
