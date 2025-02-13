@@ -10,8 +10,16 @@ export async function getRandomImage(
   message: Message,
   client: Client
 ): Promise<Message> {
+  const command: string = `${text.split(" ").slice(1).join(" ").toLowerCase()}`;
   const type: string = `${text.split(" ").slice(1).join(" ").toLowerCase()}`;
+
   client.sendMessage(message.from, WAIT_MESSAGE);
+
+  if (command === "info") {
+    return message.reply(
+      "Ini adalah perintah untuk mendapatkan gambar secara acak. Ketik *!doa* dan lihat hasilnya!"
+    );
+  }
 
   try {
     const media: MessageMedia = await MessageMedia.fromUrl(`${IMAGE_API_URL}/400`, {

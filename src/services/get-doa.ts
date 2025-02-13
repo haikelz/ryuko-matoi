@@ -49,11 +49,10 @@ Artinya: ${value.artinya}`
           .map(
             (value: DoaProps) =>
               `*${value.doa}*:    
-
 ${value.ayat}
 Artinya: ${value.artinya}`
           )
-          .join("\n")
+          .join("\n\n")
       );
     }
 

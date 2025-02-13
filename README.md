@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="src/assets/thumbnail.png" alt="thumbnail" />
   <h1>Ryuko Matoi</h1>
   <p>A simple Whatsapp bot for personal usage</p>
 </div>
