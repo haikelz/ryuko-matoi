@@ -1,6 +1,10 @@
 {
   "name": "ryuko-matoi",
   "version": "1.0.0",
+  "author": "Haikel Ilham Hakim",
+  "private": true,
+  "description": "A Whatsapp bot for my personal usage",
+  "license": "MIT",
   "main": "./src/main.ts",
   "scripts": {
     "commit": "cz",
