@@ -14,6 +14,7 @@
 - Generate a random daily do'a.
 - Generate a random image.
 - Edit a background photo color.
+- Optical Character Recognition (OCR) from input image.
 
 ## Available Commands
 
@@ -23,20 +24,16 @@
 - !editphoto
 - !jadwalsholat
 - !jokes
-- !image
+- !generateimage
 - !animequote
 - !doa
+- !ocr
 
 ## Technologies
 
 - whatsapp-web.js
 - Typescript
-- Integration with Open AI, and Remove BG.
-
-## TODO
-
-- Using Gemini instead of OpenAI
-- Implement Optical Character Recognition (OCR)
+- Integration with Gemini, and Remove BG.
 
 ## License
 
