@@ -14,6 +14,7 @@
 - Generate a random daily do'a.
 - Generate a random image.
 - Edit a background photo color.
+- Optical Character Recognition (OCR) from input image.
 
 ## Available Commands
 
@@ -26,6 +27,7 @@
 - !image
 - !animequote
 - !doa
+- !ocr
 
 ## Technologies
 
