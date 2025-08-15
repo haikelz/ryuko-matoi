@@ -2,7 +2,6 @@ import qrcode from "qrcode-terminal";
 import { Client, Message } from "whatsapp-web.js";
 import { waWebConfig } from "./configs/wa-web";
 import {
-  blastWhatsapp,
   convertImageToText,
   createSticker,
   editPhoto,
@@ -66,9 +65,6 @@ async function main() {
 
     // OCR
     if (text.startsWith("!ocr")) await convertImageToText(message, client);
-
-    // Blast whatsapp
-    if (text.startsWith("!sendlinkupemail")) await blastWhatsapp(text, message, client);
   });
 
   client.initialize();
