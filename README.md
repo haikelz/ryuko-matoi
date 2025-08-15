@@ -33,6 +33,11 @@
 - Typescript
 - Integration with Open AI, and Remove BG.
 
+## TODO
+
+- Using Gemini instead of OpenAI
+- Implement Optical Character Recognition (OCR)
+
 ## License
 
 MIT

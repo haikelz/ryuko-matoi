@@ -1,4 +1,13 @@
-.git
-.wwebjs_auth
-dist
 node_modules
+.git
+.gitignore
+.env
+.env.*
+.wwebjs_auth
+.wwebjs_cache
+dist
+*.log
+.vscode
+.idea
+README.md
+LICENSE

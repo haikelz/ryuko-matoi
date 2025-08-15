@@ -4,6 +4,8 @@ node_modules
 .env
 .env.local
 
+src/services/blast-whatsapp.ts
+blast-email.ts
 # managed by open-wa
 **.data.json
 **.node-persist**

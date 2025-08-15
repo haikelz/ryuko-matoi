@@ -1,6 +1,6 @@
-import OpenAI from "openai";
 import { Client, Message } from "whatsapp-web.js";
-import { OPEN_AI_API_KEY, WAIT_MESSAGE, WRONG_FORMAT } from "../utils/constants";
+import { gemini } from "../configs/gemini";
+import { WAIT_MESSAGE, WRONG_FORMAT } from "../utils/constants";
 
 type ResultProps = {
   success: boolean;
@@ -8,35 +8,21 @@ type ResultProps = {
   message: string;
 };
 
-async function ChatGPTRequest(text: string) {
-  const openai = new OpenAI({
-    apiKey: OPEN_AI_API_KEY,
-  });
-
+async function GeminiRequest(text: string) {
   const result: ResultProps = {
     success: false,
     data: "Maaf, saya tidak tau jawabannya",
     message: "",
   };
 
-  const data = await openai.chat.completions
-    .create({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: "You are a helpful assistant." },
-        {
-          role: "user",
-          content: text,
-        },
-      ],
-      store: true,
-    })
+  const data = await gemini.models
+    .generateContent({ model: "gemini-2.0-flash", contents: text })
     .then((response) => {
-      const { choices } = response;
+      const { data } = response;
 
-      if (choices && choices.length) {
+      if (data && data.length) {
         result.success = true;
-        result.data = choices[0].message.content as string;
+        result.data = ":fasdfasdf";
       }
 
       return result;
@@ -69,7 +55,7 @@ export async function getAnswerFromAI(
       return message.reply(`${WRONG_FORMAT} Ketik *!ask <your question>*`);
     }
 
-    const response: ResultProps = await ChatGPTRequest(question);
+    const response: ResultProps = await GeminiRequest(question);
 
     if (!response.success) return message.reply(response.message);
 
