@@ -84,7 +84,7 @@ export async function editPhoto(text: string, message: Message, client: Client) 
           return message.reply("Terjadi kesalahan saat mengedit gambar. Silahkan coba lagi!");
 
         media.data = newPhoto.base64 === null ? "" : newPhoto.base64;
-        chat.sendMessage(media, { caption: "Hasilnya" });
+        return chat.sendMessage(media, { caption: "Hasilnya" }, message.from);
       }
     }
   } catch (err) {

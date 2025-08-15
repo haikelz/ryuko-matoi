@@ -1,6 +1,6 @@
-import Tesseract from "tesseract.js";
+import * as Tesseract from "tesseract.js";
 import { Client, Message } from "whatsapp-web.js";
-import { WAIT_MESSAGE, WRONG_FORMAT } from "../utils/constants";
+import { WAIT_MESSAGE } from "../utils/constants";
 
 export async function convertImageToText(message: Message, client: Client): Promise<Message> {
   client.sendMessage(message.from, WAIT_MESSAGE);
@@ -12,6 +12,7 @@ export async function convertImageToText(message: Message, client: Client): Prom
     if (message.hasQuotedMsg) {
       const quotedMsg = await message.getQuotedMessage();
       const media = await quotedMsg.downloadMedia();
+      const file = Buffer.from(media.data, "base64");
 
       if (!media.mimetype.includes("image")) {
         return message.reply(
@@ -23,7 +24,9 @@ export async function convertImageToText(message: Message, client: Client): Prom
 
       const {
         data: { text },
-      } = await worker.recognize(media.data);
+      } = await worker.recognize(file);
+
+      await worker.terminate();
 
       return message.reply(text, message.from);
     }
@@ -36,12 +39,12 @@ export async function convertImageToText(message: Message, client: Client): Prom
       );
     }
 
-    const {
-      data: { text },
-    } = await worker.recognize(media.data);
+    const file = Buffer.from(media.data, "base64");
+    const result = await worker.recognize(file);
+    await worker.terminate();
 
-    return message.reply(text, message.from);
+    return message.reply(result.data.text, message.from);
   } catch (error) {
-    return message.reply(WRONG_FORMAT, message.from);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
   }
 }

@@ -24,7 +24,7 @@
 - !editphoto
 - !jadwalsholat
 - !jokes
-- !image
+- !generateimage
 - !animequote
 - !doa
 - !ocr
@@ -33,12 +33,7 @@
 
 - whatsapp-web.js
 - Typescript
-- Integration with Open AI, and Remove BG.
-
-## TODO
-
-- Using Gemini instead of OpenAI
-- Implement Optical Character Recognition (OCR)
+- Integration with Gemini, and Remove BG.
 
 ## License
 

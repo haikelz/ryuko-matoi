@@ -30,7 +30,8 @@ export async function getAnimeQuote(
         .then((res) => res.data.result);
 
       return message.reply(
-        response.map((value: QuoteByAnimeProps) => `- ${value.indo}`).join("\n\n")
+        response.map((value: QuoteByAnimeProps) => `- ${value.indo}`).join("\n\n"),
+        message.from
       );
     }
 
@@ -43,7 +44,8 @@ export async function getAnimeQuote(
       .then((res) => res.data.result);
 
     return message.reply(
-      response.map((value: QuoteByAnimeProps) => `*${value.anime}*\n- ${value.indo}`).join("\n\n")
+      response.map((value: QuoteByAnimeProps) => `*${value.anime}*\n- ${value.indo}`).join("\n\n"),
+      message.from
     );
   } catch (err) {
     return message.reply(`Wah error nih, silahkan coba lagi ya!`);

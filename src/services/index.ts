@@ -6,7 +6,7 @@ export * from "./doa";
 export * from "./edit-photo";
 export * from "./gemini";
 export * from "./general-info";
+export * from "./generate-image";
 export * from "./jadwal-sholat";
 export * from "./ocr";
-export * from "./random-image";
 export * from "./random-joke";

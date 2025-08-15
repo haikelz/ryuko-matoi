@@ -16,7 +16,8 @@ export async function getDoa(text: string, message: Message, client: Client): Pr
 
   if (command === "info") {
     return message.reply(
-      "Ini adalah perintah untuk mendapatkan Do'a secara spesifik, maupun secara random. Ketik *!doa* untuk mendapatkan hasil random, dan *!doa semua* untuk mendapatkan semua"
+      "Ini adalah perintah untuk mendapatkan Do'a secara spesifik, maupun secara random. Ketik *!doa* untuk mendapatkan hasil random, dan *!doa semua* untuk mendapatkan semua",
+      message.from
     );
   }
 
@@ -34,7 +35,8 @@ export async function getDoa(text: string, message: Message, client: Client): Pr
 ${value.ayat}
 Artinya: ${value.artinya}`
           )
-          .join("\n")
+          .join("\n"),
+        message.from
       );
     }
 
@@ -52,7 +54,8 @@ Artinya: ${value.artinya}`
 ${value.ayat}
 Artinya: ${value.artinya}`
           )
-          .join("\n\n")
+          .join("\n\n"),
+        message.from
       );
     }
 
@@ -64,7 +67,8 @@ Artinya: ${value.artinya}`
       `*${targetDoa.doa}*:    
 
 ${targetDoa.ayat}
-Artinya: ${targetDoa.artinya}`
+Artinya: ${targetDoa.artinya}`,
+      message.from
     );
   } catch (err) {
     return message.reply(`Wah error nih, silahkan coba lagi ya!`);

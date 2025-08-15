@@ -39,9 +39,10 @@ export async function getJadwalSholat(
 
     const { imsak, subuh, terbit, dhuha, dzuhur, ashar, maghrib, isya } = response.data.jadwal;
 
-    return message.reply(`*Jadwal Sholat hari ini, ${indonesianDate} di Kota ${
-      target[0].toUpperCase() + target.slice(1).toLowerCase()
-    }*
+    return message.reply(
+      `*Jadwal Sholat hari ini, ${indonesianDate} di Kota ${
+        target[0].toUpperCase() + target.slice(1).toLowerCase()
+      }*
 
 Imsak = ${imsak}  
 Subuh = ${subuh}   
@@ -50,7 +51,9 @@ Dhuha = ${dhuha}
 Dzuhur = ${dzuhur}  
 Ashar = ${ashar}  
 Maghrib = ${maghrib}
-Isya = ${isya}`);
+Isya = ${isya}`,
+      message.from
+    );
   } catch (err) {
     return message.reply(`Wah error nih, silahkan coba lagi ya!`);
   }

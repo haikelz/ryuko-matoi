@@ -5,13 +5,13 @@ import {
   convertImageToText,
   createSticker,
   editPhoto,
+  generateImage,
   getAnimeQuote,
   getAnswerFromAI,
   getDistroInfo,
   getDoa,
   getInfo,
   getJadwalSholat,
-  getRandomImage,
   getRandomJokes,
 } from "./services";
 
@@ -51,8 +51,8 @@ async function main() {
     // Random jokes bapak-bapak
     if (text.startsWith("!jokes")) await getRandomJokes(message, client);
 
-    // Random images from Unsplash
-    if (text.startsWith("!image")) await getRandomImage(text, message, client);
+    // Generate image from Gemini
+    if (text.startsWith("!generateimage")) await generateImage(text, message, client);
 
     // Search linux distro
     if (text.startsWith("!distro")) await getDistroInfo(text, message, client);

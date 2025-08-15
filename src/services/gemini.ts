@@ -8,21 +8,88 @@ type ResultProps = {
   message: string;
 };
 
-async function GeminiRequest(text: string) {
+async function GeminiRequest(message: Message, text: string) {
   const result: ResultProps = {
     success: false,
     data: "Maaf, saya tidak tau jawabannya",
     message: "",
   };
 
-  const data = await gemini.models
-    .generateContent({ model: "gemini-2.0-flash", contents: text })
-    .then((response) => {
-      const { data } = response;
+  if (message.hasQuotedMsg) {
+    const quotedMsg = await message.getQuotedMessage();
+    const media = await quotedMsg.downloadMedia();
 
-      if (data && data.length) {
+    if (media.mimetype.includes("image")) {
+      const data = await gemini.models
+        .generateContent({ model: "gemini-2.5-pro", contents: [media.data, text] })
+        .then((response) => {
+          const { text } = response;
+
+          if (text && text.length) {
+            result.success = true;
+            result.data = text;
+          }
+
+          return result;
+        })
+        .catch(() => {
+          result.message = `Wah error nih, silahkan coba lagi ya!`;
+          return result;
+        });
+
+      return data;
+    }
+
+    const data = await gemini.models
+      .generateContent({ model: "gemini-2.5-pro", contents: text })
+      .then((response) => {
+        const { text } = response;
+
+        if (text && text.length) {
+          result.success = true;
+          result.data = text;
+        }
+
+        return result;
+      })
+      .catch(() => {
+        result.message = `Wah error nih, silahkan coba lagi ya!`;
+        return result;
+      });
+    return data;
+  }
+
+  if (message.hasMedia) {
+    const media = await message.downloadMedia();
+
+    const data = await gemini.models
+      .generateContent({ model: "gemini-2.5-pro", contents: [media.data, text] })
+      .then((response) => {
+        const { text } = response;
+
+        if (text && text.length) {
+          result.success = true;
+          result.data = text;
+        }
+
+        return result;
+      })
+      .catch(() => {
+        result.message = `Wah error nih, silahkan coba lagi ya!`;
+        return result;
+      });
+
+    return data;
+  }
+
+  const data = await gemini.models
+    .generateContent({ model: "gemini-2.5-pro", contents: text })
+    .then((response) => {
+      const { text } = response;
+
+      if (text && text.length) {
         result.success = true;
-        result.data = ":fasdfasdf";
+        result.data = text;
       }
 
       return result;
@@ -55,11 +122,11 @@ export async function getAnswerFromAI(
       return message.reply(`${WRONG_FORMAT} Ketik *!ask <your question>*`);
     }
 
-    const response: ResultProps = await GeminiRequest(question);
+    const response: ResultProps = await GeminiRequest(message, question);
 
     if (!response.success) return message.reply(response.message);
 
-    return message.reply(response.data);
+    return message.reply(response.data, message.from);
   } catch (err) {
     return message.reply(`Wah error nih, silahkan coba lagi ya!`);
   }
