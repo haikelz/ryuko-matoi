@@ -1,19 +1,16 @@
 import qrcode from "qrcode-terminal";
 import { Client, Message } from "whatsapp-web.js";
 import { waWebConfig } from "./configs/wa-web";
-import {
-  convertImageToText,
-  createSticker,
-  editPhoto,
-  generateImage,
-  getAnimeQuote,
-  getAnswerFromAI,
-  getDistroInfo,
-  getDoa,
-  getInfo,
-  getJadwalSholat,
-  getRandomJokes,
-} from "./services";
+import { getAnimeQuote } from "./services/anime-quote";
+import { createSticker } from "./services/create-sticker";
+import { getDistroInfo } from "./services/distro-linux";
+import { getDoa } from "./services/doa";
+import { editPhoto } from "./services/edit-photo";
+import { getAnswerFromAI } from "./services/gemini";
+import { getInfo } from "./services/general-info";
+import { getJadwalSholat } from "./services/jadwal-sholat";
+import { convertImageToText } from "./services/ocr";
+import { getRandomJokes } from "./services/random-joke";
 
 async function main() {
   const client = new Client(waWebConfig);
@@ -50,9 +47,6 @@ async function main() {
 
     // Random jokes bapak-bapak
     if (text.startsWith("!jokes")) await getRandomJokes(message, client);
-
-    // Generate image from Gemini
-    if (text.startsWith("!generateimage")) await generateImage(text, message, client);
 
     // Search linux distro
     if (text.startsWith("!distro")) await getDistroInfo(text, message, client);

@@ -1,4 +1,3 @@
-import { HarmBlockThreshold, HarmCategory } from "@google/genai";
 import { Client, Message } from "whatsapp-web.js";
 import { gemini } from "../configs/gemini";
 import { WAIT_MESSAGE, WRONG_FORMAT } from "../utils/constants";
@@ -25,14 +24,6 @@ async function GeminiRequest(message: Message, text: string) {
         .generateContent({
           model: "gemini-2.5-pro",
           contents: [media.data, text],
-          config: {
-            safetySettings: [
-              {
-                category: HarmCategory.HARM_CATEGORY_IMAGE_HARASSMENT,
-                threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-              },
-            ],
-          },
         })
         .then((response) => {
           const { text } = response;
@@ -56,14 +47,6 @@ async function GeminiRequest(message: Message, text: string) {
       .generateContent({
         model: "gemini-2.5-pro",
         contents: text,
-        config: {
-          safetySettings: [
-            {
-              category: HarmCategory.HARM_CATEGORY_IMAGE_HARASSMENT,
-              threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-            },
-          ],
-        },
       })
       .then((response) => {
         const { text } = response;
@@ -89,14 +72,6 @@ async function GeminiRequest(message: Message, text: string) {
       .generateContent({
         model: "gemini-2.5-pro",
         contents: [media.data, text],
-        config: {
-          safetySettings: [
-            {
-              category: HarmCategory.HARM_CATEGORY_IMAGE_HARASSMENT,
-              threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-            },
-          ],
-        },
       })
       .then((response) => {
         const { text } = response;
@@ -120,14 +95,6 @@ async function GeminiRequest(message: Message, text: string) {
     .generateContent({
       model: "gemini-2.5-pro",
       contents: text,
-      config: {
-        safetySettings: [
-          {
-            category: HarmCategory.HARM_CATEGORY_IMAGE_HARASSMENT,
-            threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-          },
-        ],
-      },
     })
     .then((response) => {
       const { text } = response;
@@ -157,7 +124,7 @@ export async function getAnswerFromAI(
 
     if (question.length === 0) {
       return message.reply(
-        "Ini adalah perintah untuk mendapatkan jawaban dari AI ChatGPT. Cukup ketik *!ask <your_pertanyaan>*"
+        "Ini adalah perintah untuk mendapatkan jawaban dari AI. Cukup ketik *!ask <your_pertanyaan>*"
       );
     }
 

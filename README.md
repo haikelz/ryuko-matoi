@@ -12,7 +12,6 @@
 - Random jokes(more spesifically father jokes).
 - Prayer schedule.
 - Generate a random daily do'a.
-- Generate a random image.
 - Edit a background photo color.
 - Optical Character Recognition (OCR) from input image.
 
@@ -24,7 +23,6 @@
 - !editphoto
 - !jadwalsholat
 - !jokes
-- !generateimage
 - !animequote
 - !doa
 - !ocr
