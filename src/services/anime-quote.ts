@@ -1,7 +1,8 @@
+import { api } from "@/configs/axios";
+import { ANIME_QUOTE_API_URL } from "@/utils/env";
+import { WAIT_MESSAGE } from "@/utils/string";
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { ANIME_QUOTE_API_URL } from "../utils/env";
-import { WAIT_MESSAGE } from "../utils/string";
 
 type QuoteByAnimeProps = {
   id: number;
@@ -26,7 +27,7 @@ export async function getAnimeQuote(
      *   maka eksekusi kode di dalam if agar mendapatkan result sesuai nama anime
      */
     if (anime.length) {
-      const response = await axios
+      const response = await api
         .get(`${ANIME_QUOTE_API_URL}/api/getbyanime?anime=${anime}&page=1`)
         .then((res) => res.data.result);
 

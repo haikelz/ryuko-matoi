@@ -1,17 +1,17 @@
+import { waWebConfig } from "@/configs/wa-web";
+import { getAnimeQuote } from "@/services/anime-quote";
+import { getAsmaulHusna } from "@/services/asmaul-husna";
+import { createSticker } from "@/services/create-sticker";
+import { getDistroInfo } from "@/services/distro-linux";
+import { getDoa } from "@/services/doa";
+import { editBackgroundPhoto } from "@/services/edit-background-photo";
+import { getAnswerFromAI } from "@/services/gemini";
+import { getInfo } from "@/services/general-info";
+import { getJadwalSholat } from "@/services/jadwal-sholat";
+import { convertImageToText } from "@/services/ocr";
+import { getRandomJokes } from "@/services/random-joke";
 import qrcode from "qrcode-terminal";
 import { Client, Message } from "whatsapp-web.js";
-import { waWebConfig } from "./configs/wa-web";
-import { getAnimeQuote } from "./services/anime-quote";
-import { getAsmaulHusna } from "./services/asmaul-husna";
-import { createSticker } from "./services/create-sticker";
-import { getDistroInfo } from "./services/distro-linux";
-import { getDoa } from "./services/doa";
-import { editPhoto } from "./services/edit-photo";
-import { getAnswerFromAI } from "./services/gemini";
-import { getInfo } from "./services/general-info";
-import { getJadwalSholat } from "./services/jadwal-sholat";
-import { convertImageToText } from "./services/ocr";
-import { getRandomJokes } from "./services/random-joke";
 
 async function main() {
   const client = new Client(waWebConfig);
@@ -34,7 +34,7 @@ async function main() {
     if (text.startsWith("!info")) await getInfo(message);
 
     // hapus background foto
-    if (text.startsWith("!editphoto")) await editPhoto(text, message, client);
+    if (text.startsWith("!editbackground")) await editBackgroundPhoto(text, message, client);
 
     // Open AI
     if (text.startsWith("!ask")) await getAnswerFromAI(text, message, client);

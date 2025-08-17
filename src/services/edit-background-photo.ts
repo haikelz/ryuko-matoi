@@ -1,7 +1,7 @@
-import axios from "axios";
+import { api } from "@/configs/axios";
+import { REMOVE_BG_API_KEY, REMOVE_BG_API_URL } from "@/utils/env";
+import { WAIT_MESSAGE, WRONG_FORMAT } from "@/utils/string";
 import { Chat, Client, Message, MessageMedia } from "whatsapp-web.js";
-import { REMOVE_BG_API_KEY, REMOVE_BG_API_URL } from "../utils/env";
-import { WAIT_MESSAGE, WRONG_FORMAT } from "../utils/string";
 
 type ResultProps = {
   success: boolean;
@@ -9,14 +9,14 @@ type ResultProps = {
   message: string;
 };
 
-async function editPhotoRequest(base64: string, bgColor: string): Promise<ResultProps> {
+async function editBackgroundPhotoRequest(base64: string, bgColor: string): Promise<ResultProps> {
   const result: ResultProps = {
     success: false,
     base64: null,
     message: "",
   };
 
-  return await axios({
+  return await api({
     method: "post",
     url: `${REMOVE_BG_API_URL}/v1.0/removebg`,
     data: {
@@ -45,7 +45,7 @@ async function editPhotoRequest(base64: string, bgColor: string): Promise<Result
     });
 }
 
-export async function editPhoto(text: string, message: Message, client: Client) {
+export async function editBackgroundPhoto(text: string, message: Message, client: Client) {
   client.sendMessage(message.from, WAIT_MESSAGE);
 
   try {
@@ -76,7 +76,7 @@ export async function editPhoto(text: string, message: Message, client: Client) 
       if (media) {
         const chat: Chat = await message.getChat();
         const color = command;
-        const newPhoto = await editPhotoRequest(media.data, color);
+        const newPhoto = await editBackgroundPhotoRequest(media.data, color);
 
         if (!newPhoto.success)
           return message.reply(

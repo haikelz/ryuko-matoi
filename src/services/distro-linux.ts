@@ -2,12 +2,16 @@
  * IMPORTANT
  * Since the API is no longer working, I don't use this command/feature anymore
  */
-import axios from "axios";
+import { api } from "@/configs/axios";
+import { DISTRO_INFO_API_URL } from "@/utils/env";
+import { WAIT_MESSAGE } from "@/utils/string";
 import { Client, Message } from "whatsapp-web.js";
-import { DISTRO_INFO_API_URL } from "../utils/env";
-import { WAIT_MESSAGE } from "../utils/string";
 
-export async function getDistroInfo(text: string, message: Message, client: Client) {
+export async function getDistroInfo(
+  text: string,
+  message: Message,
+  client: Client
+): Promise<Message> {
   const distro: string = `${text.split(" ").slice(1).join(" ")}`;
 
   client.sendMessage(message.from, WAIT_MESSAGE);
@@ -27,7 +31,7 @@ export async function getDistroInfo(text: string, message: Message, client: Clie
   }
 
   try {
-    const result = await axios
+    const result = await api
       .get(`${DISTRO_INFO_API_URL}/api/v2/distributions/${distro}`)
       .then((res) => res.data);
 

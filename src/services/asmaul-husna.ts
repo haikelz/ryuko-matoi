@@ -1,8 +1,9 @@
+import { api } from "@/configs/axios";
+import { ASMAUL_HUSNA_API_URL } from "@/utils/env";
+import { WAIT_MESSAGE } from "@/utils/string";
 import axios from "axios";
 import slugify from "slugify";
 import { Client, Message } from "whatsapp-web.js";
-import { ASMAUL_HUSNA_API_URL } from "../utils/env";
-import { WAIT_MESSAGE } from "../utils/string";
 
 type AsmaulHusna = {
   urutan: number;
@@ -32,7 +33,7 @@ export async function getAsmaulHusna(
     }
 
     if (command === "") {
-      const response = await axios.get(`${ASMAUL_HUSNA_API_URL}/api/all`);
+      const response = await api.get(`${ASMAUL_HUSNA_API_URL}/api/all`);
       return message.reply(
         `
         ${response.data.data

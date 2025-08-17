@@ -1,6 +1,6 @@
+import { WAIT_MESSAGE } from "@/utils/string";
 import * as Tesseract from "tesseract.js";
 import { Client, Message } from "whatsapp-web.js";
-import { WAIT_MESSAGE } from "../utils/string";
 
 export async function convertImageToText(message: Message, client: Client): Promise<Message> {
   client.sendMessage(message.from, WAIT_MESSAGE);

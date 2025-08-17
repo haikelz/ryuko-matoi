@@ -1,8 +1,8 @@
-import axios from "axios";
+import { api } from "@/configs/axios";
+import { bulan, hari, tahun } from "@/utils/date";
+import { QURAN_API_URL } from "@/utils/env";
+import { WAIT_MESSAGE } from "@/utils/string";
 import { Client, Message } from "whatsapp-web.js";
-import { bulan, hari, tahun } from "../utils/date";
-import { QURAN_API_URL } from "../utils/env";
-import { WAIT_MESSAGE } from "../utils/string";
 
 export async function getJadwalSholat(
   text: string,
@@ -33,10 +33,10 @@ export async function getJadwalSholat(
   }
 
   try {
-    const getId = await axios
+    const getId = await api
       .get(`${QURAN_API_URL}/v2/sholat/kota/cari/${target}`)
       .then((res) => res.data.data[0].id);
-    const response = await axios
+    const response = await api
       .get(`${QURAN_API_URL}/v2/sholat/jadwal/${getId}/${date}`)
       .then((res) => res.data);
 

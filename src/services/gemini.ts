@@ -1,6 +1,6 @@
+import { gemini } from "@/configs/gemini";
+import { WAIT_MESSAGE, WRONG_FORMAT } from "@/utils/string";
 import { Client, Message } from "whatsapp-web.js";
-import { gemini } from "../configs/gemini";
-import { WAIT_MESSAGE, WRONG_FORMAT } from "../utils/string";
 
 type ResultProps = {
   success: boolean;
