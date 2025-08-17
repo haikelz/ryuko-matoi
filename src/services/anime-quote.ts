@@ -32,7 +32,7 @@ export async function getAnimeQuote(
         .get(`${ANIME_QUOTE_API_URL}/api/getbyanime?anime=${anime}&page=1`)
         .then((res) => res.data.result);
 
-      logger.info(response);
+      logger.info(`User ${message.from} is requesting anime quote by anime name: ${anime}`);
       return message.reply(
         response.map((value: QuoteByAnimeProps) => `- ${value.indo}`).join("\n\n"),
         message.from
@@ -47,7 +47,7 @@ export async function getAnimeQuote(
       .get(`${ANIME_QUOTE_API_URL}/api/getrandom`)
       .then((res) => res.data.result);
 
-    logger.info(response);
+    logger.info(`User ${message.from} is requesting random anime quote`);
     return message.reply(
       response.map((value: QuoteByAnimeProps) => `*${value.anime}*\n- ${value.indo}`).join("\n\n"),
       message.from

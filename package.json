@@ -24,7 +24,7 @@
     "whatsapp-web.js": "^1.32.0"
   },
   "devDependencies": {
-    "@types/node": "^22.17.1",
+    "@types/node": "^22.17.2",
     "@types/qrcode-terminal": "^0.12.2",
     "@typescript-eslint/eslint-plugin": "^8.39.1",
     "@typescript-eslint/parser": "^8.39.1",

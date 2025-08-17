@@ -19,7 +19,7 @@ export async function getRandomJokes(message: Message, client: Client): Promise<
     const media: MessageMedia = await MessageMedia.fromUrl(randomImage);
 
     logger.info(`User ${message.from} is requesting random joke`);
-    return message.reply(media, message.from, {
+    return client.sendMessage(message.from, media, {
       caption: randomText,
     });
   } catch (err) {

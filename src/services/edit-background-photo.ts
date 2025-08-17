@@ -2,7 +2,7 @@ import { api } from "@/configs/axios";
 import { logger } from "@/configs/logger";
 import { REMOVE_BG_API_KEY, REMOVE_BG_API_URL } from "@/utils/env";
 import { WAIT_MESSAGE, WRONG_FORMAT } from "@/utils/string";
-import { Chat, Client, Message, MessageMedia } from "whatsapp-web.js";
+import { Client, Message, MessageMedia } from "whatsapp-web.js";
 
 type ResultProps = {
   success: boolean;
@@ -82,7 +82,6 @@ export async function editBackgroundPhoto(text: string, message: Message, client
       const media: MessageMedia = await message.downloadMedia();
 
       if (media) {
-        const chat: Chat = await message.getChat();
         const color = command;
         const newPhoto = await editBackgroundPhotoRequest(media.data, color);
 
@@ -96,7 +95,7 @@ export async function editBackgroundPhoto(text: string, message: Message, client
 
         media.data = newPhoto.base64 === null ? "" : newPhoto.base64;
         logger.info(`User ${message.from} is editing background photo`);
-        return chat.sendMessage(media, { caption: "Hasilnya" });
+        return client.sendMessage(message.from, media, { caption: "Hasilnya" });
       }
     }
   } catch (err) {
