@@ -21,7 +21,10 @@ async function GeminiRequest(message: Message, text: string) {
 
     if (media.mimetype.includes("image")) {
       const data = await gemini.models
-        .generateContent({ model: "gemini-2.5-pro", contents: [media.data, text] })
+        .generateContent({
+          model: "gemini-2.5-pro",
+          contents: [media.data, text],
+        })
         .then((response) => {
           const { text } = response;
 
@@ -41,7 +44,10 @@ async function GeminiRequest(message: Message, text: string) {
     }
 
     const data = await gemini.models
-      .generateContent({ model: "gemini-2.5-pro", contents: text })
+      .generateContent({
+        model: "gemini-2.5-pro",
+        contents: text,
+      })
       .then((response) => {
         const { text } = response;
 
@@ -63,7 +69,10 @@ async function GeminiRequest(message: Message, text: string) {
     const media = await message.downloadMedia();
 
     const data = await gemini.models
-      .generateContent({ model: "gemini-2.5-pro", contents: [media.data, text] })
+      .generateContent({
+        model: "gemini-2.5-pro",
+        contents: [media.data, text],
+      })
       .then((response) => {
         const { text } = response;
 
@@ -83,7 +92,10 @@ async function GeminiRequest(message: Message, text: string) {
   }
 
   const data = await gemini.models
-    .generateContent({ model: "gemini-2.5-pro", contents: text })
+    .generateContent({
+      model: "gemini-2.5-pro",
+      contents: text,
+    })
     .then((response) => {
       const { text } = response;
 
@@ -112,7 +124,7 @@ export async function getAnswerFromAI(
 
     if (question.length === 0) {
       return message.reply(
-        "Ini adalah perintah untuk mendapatkan jawaban dari AI ChatGPT. Cukup ketik *!ask <your_pertanyaan>*"
+        "Ini adalah perintah untuk mendapatkan jawaban dari AI. Cukup ketik *!ask <your_pertanyaan>*"
       );
     }
 
