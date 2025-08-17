@@ -14,7 +14,8 @@ export async function createSticker(message: Message, client: Client): Promise<M
         return message.reply(
           `*Format file yang anda masukkan salah!* Silahkan masukkan file berupa gambar/video. Format file yang anda masukkan: ${
             quotedMessage.mimetype.split("/")[0]
-          }`
+          }`,
+          message.from
         );
       }
 
@@ -31,7 +32,8 @@ export async function createSticker(message: Message, client: Client): Promise<M
       return message.reply(
         `*Format file yang anda masukkan salah!* Silahkan masukkan file berupa gambar/video. Format file yang anda masukkan: ${
           media.mimetype.split("/")[0]
-        }`
+        }`,
+        message.from
       );
     }
 

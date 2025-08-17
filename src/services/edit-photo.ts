@@ -54,19 +54,21 @@ export async function editPhoto(text: string, message: Message, client: Client) 
     if (command.length <= 2) {
       if (command.length === 0) {
         return message.reply(
-          "Ini adalah perintah untuk mengubah warna background dari sebuah foto. Nama warna yang dimasukkan harus dalam bahasa Inggris.  Contoh: *!editphoto red*"
+          "Ini adalah perintah untuk mengubah warna background dari sebuah foto. Nama warna yang dimasukkan harus dalam bahasa Inggris.  Contoh: *!editphoto red*",
+          message.from
         );
       }
       return message.reply(
-        "Maaf, panjang karakter yang dimasukkan tidak boleh kurang dari atau sama dengan 2!"
+        "Maaf, panjang karakter yang dimasukkan tidak boleh kurang dari atau sama dengan 2!",
+        message.from
       );
     }
 
-    if (!command) return message.reply(`${WRONG_FORMAT}. Ketik *editphoto <warna>*`);
+    if (!command) return message.reply(`${WRONG_FORMAT}. Ketik *editphoto <warna>*`, message.from);
 
     if (message.hasMedia) {
       if (message.type != "image") {
-        return message.reply("Maaf! Sepertinya file yang kamu berikan bukan gambar");
+        return message.reply("Maaf! Sepertinya file yang kamu berikan bukan gambar", message.from);
       }
 
       const media: MessageMedia = await message.downloadMedia();
@@ -77,7 +79,10 @@ export async function editPhoto(text: string, message: Message, client: Client) 
         const newPhoto = await editPhotoRequest(media.data, color);
 
         if (!newPhoto.success)
-          return message.reply("Terjadi kesalahan saat mengedit gambar. Silahkan coba lagi!");
+          return message.reply(
+            "Terjadi kesalahan saat mengedit gambar. Silahkan coba lagi!",
+            message.from
+          );
 
         media.data = newPhoto.base64 === null ? "" : newPhoto.base64;
         return chat.sendMessage(media, { caption: "Hasilnya" });

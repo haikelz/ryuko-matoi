@@ -18,7 +18,8 @@ export async function convertImageToText(message: Message, client: Client): Prom
         return message.reply(
           `*Format file yang anda masukkan salah!* Silahkan masukkan file berupa gambar. Format file yang anda masukkan: ${
             media.mimetype.split("/")[0]
-          }`
+          }`,
+          message.from
         );
       }
 
@@ -35,7 +36,8 @@ export async function convertImageToText(message: Message, client: Client): Prom
       return message.reply(
         `*Format file yang anda masukkan salah!* Silahkan masukkan file berupa gambar. Format file yang anda masukkan: ${
           media.mimetype.split("/")[0]
-        }`
+        }`,
+        message.from
       );
     }
 

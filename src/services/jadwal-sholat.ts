@@ -22,11 +22,13 @@ export async function getJadwalSholat(
   if (target.length <= 2) {
     if (target.length === 0) {
       return message.reply(
-        "Ini adalah perintah untuk mendapatkan jadwal sholat sesuai dengan nama daerah yang dimasukkan. Cukup ketik *!jadwalsholat <your_daerah>*"
+        "Ini adalah perintah untuk mendapatkan jadwal sholat sesuai dengan nama daerah yang dimasukkan. Cukup ketik *!jadwalsholat <your_daerah>*",
+        message.from
       );
     }
     return message.reply(
-      "Maaf, panjang karakter daerah yang dimasukkan tidak boleh kurang dari atau sama dengan 2!"
+      "Maaf, panjang karakter daerah yang dimasukkan tidak boleh kurang dari atau sama dengan 2!",
+      message.from
     );
   }
 
