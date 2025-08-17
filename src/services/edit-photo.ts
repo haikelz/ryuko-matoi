@@ -1,11 +1,7 @@
 import axios from "axios";
 import { Chat, Client, Message, MessageMedia } from "whatsapp-web.js";
-import {
-  REMOVE_BG_API_KEY,
-  REMOVE_BG_API_URL,
-  WAIT_MESSAGE,
-  WRONG_FORMAT,
-} from "../utils/constants";
+import { REMOVE_BG_API_KEY, REMOVE_BG_API_URL } from "../utils/env";
+import { WAIT_MESSAGE, WRONG_FORMAT } from "../utils/string";
 
 type ResultProps = {
   success: boolean;
@@ -88,6 +84,6 @@ export async function editPhoto(text: string, message: Message, client: Client) 
       }
     }
   } catch (err) {
-    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

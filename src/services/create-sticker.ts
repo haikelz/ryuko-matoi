@@ -1,5 +1,5 @@
 import { Client, Message, MessageMedia } from "whatsapp-web.js";
-import { WAIT_MESSAGE } from "../utils/constants";
+import { WAIT_MESSAGE } from "../utils/string";
 
 export async function createSticker(message: Message, client: Client): Promise<Message> {
   client.sendMessage(message.from, WAIT_MESSAGE);
@@ -41,6 +41,6 @@ export async function createSticker(message: Message, client: Client): Promise<M
       stickerName: "Baiklah",
     });
   } catch (error) {
-    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

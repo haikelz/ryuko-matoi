@@ -1,6 +1,6 @@
 import { Client, Message } from "whatsapp-web.js";
 import { gemini } from "../configs/gemini";
-import { WAIT_MESSAGE, WRONG_FORMAT } from "../utils/constants";
+import { WAIT_MESSAGE, WRONG_FORMAT } from "../utils/string";
 
 type ResultProps = {
   success: boolean;
@@ -130,16 +130,13 @@ export async function getAnswerFromAI(
 
     client.sendMessage(message.from, WAIT_MESSAGE);
 
-    if (!question) {
-      return message.reply(`${WRONG_FORMAT} Ketik *!ask <your question>*`);
-    }
+    if (!question) return message.reply(`${WRONG_FORMAT} Ketik *!ask <your question>*`);
 
     const response: ResultProps = await GeminiRequest(message, question);
 
     if (!response.success) return message.reply(response.message);
-
     return message.reply(response.data, message.from);
   } catch (err) {
-    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

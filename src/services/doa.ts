@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { DOA_API_URL, WAIT_MESSAGE } from "../utils/constants";
+import { DOA_API_URL } from "../utils/env";
+import { WAIT_MESSAGE } from "../utils/string";
 
 type DoaProps = {
   id: string;
@@ -71,6 +72,6 @@ Artinya: ${targetDoa.artinya}`,
       message.from
     );
   } catch (err) {
-    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

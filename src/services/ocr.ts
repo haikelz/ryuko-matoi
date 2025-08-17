@@ -1,6 +1,6 @@
 import * as Tesseract from "tesseract.js";
 import { Client, Message } from "whatsapp-web.js";
-import { WAIT_MESSAGE } from "../utils/constants";
+import { WAIT_MESSAGE } from "../utils/string";
 
 export async function convertImageToText(message: Message, client: Client): Promise<Message> {
   client.sendMessage(message.from, WAIT_MESSAGE);
@@ -45,6 +45,6 @@ export async function convertImageToText(message: Message, client: Client): Prom
 
     return message.reply(result.data.text, message.from);
   } catch (error) {
-    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

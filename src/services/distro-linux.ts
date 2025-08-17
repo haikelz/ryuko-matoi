@@ -4,7 +4,8 @@
  */
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { DISTRO_INFO_API_URL, WAIT_MESSAGE } from "../utils/constants";
+import { DISTRO_INFO_API_URL } from "../utils/env";
+import { WAIT_MESSAGE } from "../utils/string";
 
 export async function getDistroInfo(text: string, message: Message, client: Client) {
   const distro: string = `${text.split(" ").slice(1).join(" ")}`;
@@ -50,6 +51,6 @@ ${result.download_mirrors.map((value: string) => `- ${value}`).join("\n")}
       message.from
     );
   } catch (err) {
-    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

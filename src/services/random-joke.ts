@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Client, Message, MessageMedia } from "whatsapp-web.js";
-import { JOKES_API_URL, WAIT_MESSAGE } from "../utils/constants";
+import { JOKES_API_URL } from "../utils/env";
+import { WAIT_MESSAGE } from "../utils/string";
 
 export async function getRandomJokes(message: Message, client: Client): Promise<Message> {
   client.sendMessage(message.from, WAIT_MESSAGE);
@@ -18,6 +19,6 @@ export async function getRandomJokes(message: Message, client: Client): Promise<
       caption: randomText,
     });
   } catch (err) {
-    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { QURAN_API_URL, WAIT_MESSAGE } from "../utils/constants";
-import { bulan, hari, tahun } from "../utils/format-date";
+import { bulan, hari, tahun } from "../utils/date";
+import { QURAN_API_URL } from "../utils/env";
+import { WAIT_MESSAGE } from "../utils/string";
 
 export async function getJadwalSholat(
   text: string,
@@ -55,6 +56,6 @@ Isya = ${isya}`,
       message.from
     );
   } catch (err) {
-    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

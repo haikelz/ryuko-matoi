@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Client, Message } from "whatsapp-web.js";
-import { ANIME_QUOTE_API_URL, WAIT_MESSAGE } from "../utils/constants";
+import { ANIME_QUOTE_API_URL } from "../utils/env";
+import { WAIT_MESSAGE } from "../utils/string";
 
 type QuoteByAnimeProps = {
   id: number;
@@ -48,6 +49,6 @@ export async function getAnimeQuote(
       message.from
     );
   } catch (err) {
-    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

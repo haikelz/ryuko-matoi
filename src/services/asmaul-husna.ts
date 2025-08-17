@@ -1,7 +1,8 @@
 import axios from "axios";
 import slugify from "slugify";
 import { Client, Message } from "whatsapp-web.js";
-import { ASMAUL_HUSNA_API, WAIT_MESSAGE } from "../utils/constants";
+import { ASMAUL_HUSNA_API_URL } from "../utils/env";
+import { WAIT_MESSAGE } from "../utils/string";
 
 type AsmaulHusna = {
   urutan: number;
@@ -31,7 +32,7 @@ export async function getAsmaulHusna(
     }
 
     if (command === "") {
-      const response = await axios.get(`${ASMAUL_HUSNA_API}/api/all`);
+      const response = await axios.get(`${ASMAUL_HUSNA_API_URL}/api/all`);
       return message.reply(
         `
         ${response.data.data
@@ -50,7 +51,7 @@ ${item.arti}
     }
 
     if (Number.isInteger(Number(command))) {
-      const response = await axios.get(`${ASMAUL_HUSNA_API}/api/${command}`);
+      const response = await axios.get(`${ASMAUL_HUSNA_API_URL}/api/${command}`);
       return message.reply(
         `
 ${response.data.data.urutan} - ${response.data.data.arab}
@@ -62,7 +63,7 @@ ${response.data.data.arti}
     }
 
     const response = await axios.get(
-      `${ASMAUL_HUSNA_API}/api/latin/${slugify(command, { lower: true })}`
+      `${ASMAUL_HUSNA_API_URL}/api/latin/${slugify(command, { lower: true })}`
     );
 
     return message.reply(
