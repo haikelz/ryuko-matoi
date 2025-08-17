@@ -49,7 +49,7 @@ ${item.arti}
       );
     }
 
-    if (typeof Number(command) === "number") {
+    if (Number.isInteger(Number(command))) {
       const response = await axios.get(`${ASMAUL_HUSNA_API}/api/${command}`);
       return message.reply(
         `
@@ -74,6 +74,6 @@ ${response.data.data.arti}
       message.from
     );
   } catch (err) {
-    return message.reply(`Wah error nih, silahkan coba lagi ya!`);
+    return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }
