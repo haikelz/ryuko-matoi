@@ -1,4 +1,5 @@
 import { api } from "@/configs/axios";
+import { logger } from "@/configs/logger";
 import { JOKES_API_URL } from "@/utils/env";
 import { WAIT_MESSAGE } from "@/utils/string";
 import { Client, Message, MessageMedia } from "whatsapp-web.js";
@@ -10,15 +11,19 @@ export async function getRandomJokes(message: Message, client: Client): Promise<
     const randomText = await api
       .get(`${JOKES_API_URL}/api/text/random`)
       .then((res) => res.data.data);
+
     const randomImage = await api
       .get(`${JOKES_API_URL}/api/image/random`)
       .then((res) => res.data.data.url);
+
     const media: MessageMedia = await MessageMedia.fromUrl(randomImage);
 
+    logger.info(`User ${message.from} is requesting random joke`);
     return message.reply(media, message.from, {
       caption: randomText,
     });
   } catch (err) {
+    logger.error(`Error in getRandomJokes from ${message.from}: ${err}`);
     return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

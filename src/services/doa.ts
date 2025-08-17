@@ -1,4 +1,5 @@
 import { api } from "@/configs/axios";
+import { logger } from "@/configs/logger";
 import { DOA_API_URL } from "@/utils/env";
 import { WAIT_MESSAGE } from "@/utils/string";
 import axios from "axios";
@@ -28,6 +29,7 @@ export async function getDoa(text: string, message: Message, client: Client): Pr
 
     // bila command yang diberikan kosong
     if (command === "") {
+      logger.info(`User ${message.from} is requesting random Doa`);
       return message.reply(
         randomDoa
           .map(
@@ -48,6 +50,7 @@ Artinya: ${value.artinya}`
 
     // bila command = semua
     if (command === "semua") {
+      logger.info(`User ${message.from} is requesting all Doa`);
       return message.reply(
         semuaDoa
           .map(
@@ -65,6 +68,8 @@ Artinya: ${value.artinya}`
     const targetDoa: DoaProps = await axios
       .get(`https://doa-doa-api-ahmadramadhan.fly.dev/api/doa/${command}`)
       .then((res) => res.data);
+
+    logger.info(`User ${message.from} is requesting Doa by name: ${command}`);
     return message.reply(
       `*${targetDoa.doa}*:    
 
@@ -73,6 +78,7 @@ Artinya: ${targetDoa.artinya}`,
       message.from
     );
   } catch (err) {
+    logger.error(`Error in getDoa from ${message.from}: ${err}`);
     return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

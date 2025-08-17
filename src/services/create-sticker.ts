@@ -1,3 +1,4 @@
+import { logger } from "@/configs/logger";
 import { WAIT_MESSAGE } from "@/utils/string";
 import { Client, Message, MessageMedia } from "whatsapp-web.js";
 
@@ -11,6 +12,7 @@ export async function createSticker(message: Message, client: Client): Promise<M
         .then(async (msg) => await msg.downloadMedia());
 
       if (!quotedMessage.mimetype.includes("image") && !quotedMessage.mimetype.includes("video")) {
+        logger.info(`User ${message.from} is creating sticker from ${quotedMessage.mimetype}`);
         return message.reply(
           `*Format file yang anda masukkan salah!* Silahkan masukkan file berupa gambar/video. Format file yang anda masukkan: ${
             quotedMessage.mimetype.split("/")[0]
@@ -19,6 +21,7 @@ export async function createSticker(message: Message, client: Client): Promise<M
         );
       }
 
+      logger.info(`User ${message.from} is creating sticker from ${quotedMessage.mimetype}`);
       return message.reply(quotedMessage, message.from, {
         sendMediaAsSticker: true,
         stickerAuthor: "Ryuko Matoi",
@@ -29,6 +32,7 @@ export async function createSticker(message: Message, client: Client): Promise<M
     const media: MessageMedia = await message.downloadMedia();
 
     if (!media.mimetype.includes("image") && !media.mimetype.includes("video")) {
+      logger.info(`User ${message.from} is creating sticker from ${media.mimetype}`);
       return message.reply(
         `*Format file yang anda masukkan salah!* Silahkan masukkan file berupa gambar/video. Format file yang anda masukkan: ${
           media.mimetype.split("/")[0]
@@ -37,12 +41,14 @@ export async function createSticker(message: Message, client: Client): Promise<M
       );
     }
 
+    logger.info(`User ${message.from} is creating sticker from ${media.mimetype}`);
     return message.reply(media, message.from, {
       sendMediaAsSticker: true,
       stickerAuthor: "Ryuko Matoi",
       stickerName: "Baiklah",
     });
   } catch (error) {
+    logger.error(`Error in createSticker from ${message.from}: ${error}`);
     return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

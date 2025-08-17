@@ -33,6 +33,15 @@
 - Typescript
 - Integration with Gemini, and Remove BG.
 
+## Screenshots
+
+|                                                                     |                                                                     |
+| :-----------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| ![ss 1](./src/assets/Screenshot%20From%202025-08-18%2001-21-39.png) | ![ss 2](./src/assets/Screenshot%20From%202025-08-18%2001-22-35.png) |
+| ![ss 3](./src/assets/Screenshot%20From%202025-08-18%2001-34-44.png) | ![ss 4](./src/assets/Screenshot%20From%202025-08-18%2001-34-55.png) |
+| ![ss 5](./src/assets/Screenshot%20From%202025-08-18%2001-36-26.png) | ![ss 6](./src/assets/Screenshot%20From%202025-08-18%2001-41-52.png) |
+| ![ss 7](./src/assets/Screenshot%20From%202025-08-18%2001-42-02.png) | ![ss 8](./src/assets/Screenshot%20From%202025-08-18%2001-47-52.png) |
+
 ## License
 
 MIT

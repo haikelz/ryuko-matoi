@@ -1,9 +1,11 @@
+import { logger } from "@/configs/logger";
 import { Message, MessageMedia } from "whatsapp-web.js";
 
 export async function getInfo(message: Message): Promise<Message> {
   try {
     const media: MessageMedia = MessageMedia.fromFilePath("src/assets/thumbnail.png");
 
+    logger.info(`User ${message.from} is requesting general info`);
     return message.reply(media, message.from, {
       caption: `
 \t*Ryuko Matoi*\t\t
@@ -23,6 +25,7 @@ export async function getInfo(message: Message): Promise<Message> {
 `,
     });
   } catch (err) {
+    logger.error(`Error in getInfo from ${message.from}: ${err}`);
     return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }

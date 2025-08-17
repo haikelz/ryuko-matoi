@@ -10,6 +10,7 @@ import { getInfo } from "@/services/general-info";
 import { getJadwalSholat } from "@/services/jadwal-sholat";
 import { convertImageToText } from "@/services/ocr";
 import { getRandomJokes } from "@/services/random-joke";
+import { getSalam } from "@/services/salam";
 import qrcode from "qrcode-terminal";
 import { Client, Message } from "whatsapp-web.js";
 
@@ -28,7 +29,7 @@ async function main() {
     const text: string = message.body.toLowerCase() || "";
 
     // Cek status bot dengan !salam
-    if (text.startsWith("!salam")) return message.reply("Assalamu'alaikum");
+    if (text.startsWith("!salam")) return getSalam(message, client);
 
     // Info
     if (text.startsWith("!info")) await getInfo(message);

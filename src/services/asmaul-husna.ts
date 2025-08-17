@@ -1,4 +1,5 @@
 import { api } from "@/configs/axios";
+import { logger } from "@/configs/logger";
 import { ASMAUL_HUSNA_API_URL } from "@/utils/env";
 import { WAIT_MESSAGE } from "@/utils/string";
 import axios from "axios";
@@ -23,6 +24,7 @@ export async function getAsmaulHusna(
 
   try {
     if (command === "info") {
+      logger.info(`User ${message.from} is requesting info about Asmaul Husna`);
       return message.reply(
         `Ini adalah perintah untuk mendapatkan Asmaul Husna.\n      
 - Masukkan nomor urut untuk mendapatkan Asma'ul Husna berdasarkan nomor urut.
@@ -34,6 +36,8 @@ export async function getAsmaulHusna(
 
     if (command === "") {
       const response = await api.get(`${ASMAUL_HUSNA_API_URL}/api/all`);
+
+      logger.info(`User ${message.from} is requesting all Asmaul Husna`);
       return message.reply(
         `
         ${response.data.data
@@ -53,6 +57,8 @@ ${item.arti}
 
     if (Number.isInteger(Number(command))) {
       const response = await axios.get(`${ASMAUL_HUSNA_API_URL}/api/${command}`);
+
+      logger.info(`User ${message.from} is requesting Asmaul Husna by number: ${command}`);
       return message.reply(
         `
 ${response.data.data.urutan} - ${response.data.data.arab}
@@ -67,6 +73,7 @@ ${response.data.data.arti}
       `${ASMAUL_HUSNA_API_URL}/api/latin/${slugify(command, { lower: true })}`
     );
 
+    logger.info(`User ${message.from} is requesting Asmaul Husna by latin: ${command}`);
     return message.reply(
       `
 ${response.data.data.urutan} - ${response.data.data.arab}
@@ -76,6 +83,7 @@ ${response.data.data.arti}
       message.from
     );
   } catch (err) {
+    logger.error(`Error in getAsmaulHusna from ${message.from}: ${err}`);
     return message.reply(`Wah error nih, silahkan coba lagi ya!`, message.from);
   }
 }
