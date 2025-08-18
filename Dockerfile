@@ -45,13 +45,15 @@ RUN apt-get update && apt-get install -y \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
+# Install bun
+RUN npm install -g bun
 
 # Copy package files
 COPY package.json ./
-COPY package-lock.json ./
+COPY bun.lock ./
 
 # Install dependencies
-RUN npm install --frozen-lockfile
+RUN bun install --frozen-lockfile
 
 # Copy the rest of the application
 COPY . .
@@ -60,8 +62,5 @@ COPY . .
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
-# Build TypeScript files
-RUN npm run build
-
 # Start the bot
-CMD ["npm", "start"]
+CMD ["bun", "dev"]

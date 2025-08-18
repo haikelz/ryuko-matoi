@@ -14,13 +14,13 @@ export async function getInfo(message: Message): Promise<Message> {
 \t!salam\t\t
 \t!info\t\t
 \t!ask\t\t
-\t!editphoto\t\t
+\t!editbackground\t\t
 \t!jadwalsholat\t\t
 \t!sticker\t\t
-\t!image\t\t
 \t!doa\t\t
 \t!jokes\t\t
 \t!animequote\t\t
+\t!ocr\t\t
 \t!asmaulhusna\t\t
 `,
     });
