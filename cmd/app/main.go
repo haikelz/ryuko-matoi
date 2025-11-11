@@ -24,24 +24,29 @@ func eventHandler(evt interface{}) {
 func main() {
 	dbLog := waLog.Stdout("Database", "DEBUG", true)
 	ctx := context.Background()
-	container, err := sqlstore.New(ctx, "sqlite3", "file:examplestore.db?_foreign_keys=on", dbLog)
+
+	container, err := sqlstore.New(ctx, "sqlite3", "file:ryuko-matoi.db?_foreign_keys=on", dbLog)
 	if err != nil {
 		panic(err)
 	}
+
 	deviceStore, err := container.GetFirstDevice(ctx)
 	if err != nil {
 		panic(err)
 	}
+
 	clientLog := waLog.Stdout("Client", "DEBUG", true)
 	client := whatsmeow.NewClient(deviceStore, clientLog)
 	client.AddEventHandler(eventHandler)
 
 	if client.Store.ID == nil {
 		qrChan, _ := client.GetQRChannel(context.Background())
+
 		err = client.Connect()
 		if err != nil {
 			panic(err)
 		}
+
 		for evt := range qrChan {
 			if evt.Event == "code" {
 				fmt.Println("QR code:", evt.Code)
